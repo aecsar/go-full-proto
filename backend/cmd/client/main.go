@@ -22,4 +22,14 @@ func main() {
 	}
 
 	fmt.Printf("response: %v\n", res.Greeting)
+
+	invalid, err := client.Greet(context.Background(), &pb.GreetRequest{
+		Name: "",
+	})
+
+	if err != nil {
+		log.Fatalf("error sending greeting req: %v", err)
+	}
+
+	fmt.Printf("invalid res : %v\n", invalid.Greeting)
 }

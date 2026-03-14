@@ -20,8 +20,3 @@ require (
 	google.golang.org/genproto/googleapis/api v0.0.0-20250922171735-9219d122eba9 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250922171735-9219d122eba9 // indirect
 )
-
-tool (
-	connectrpc.com/connect/cmd/protoc-gen-connect-go
-	google.golang.org/protobuf/cmd/protoc-gen-go
-)

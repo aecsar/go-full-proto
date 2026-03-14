@@ -1,12 +1,14 @@
 version: v2
 clean: true
 plugins:
-  - local: [go, tool, protoc-gen-go]
-    out: ./gen/pb/
+  # - local: [go, tool, protoc-gen-go]
+  - remote: buf.build/protocolbuffers/go:v1.36.11
+    out: ./backend/gen/pb/
     opt:
       - paths=source_relative
-  - local: [go, tool, protoc-gen-connect-go]
-    out: ./gen/pb/
+  # - local: [go, tool, protoc-gen-connect-go]
+  - remote: buf.build/connectrpc/gosimple:v1.19.1
+    out: ./backend/gen/pb/
     opt:
       - paths=source_relative
       - simple
