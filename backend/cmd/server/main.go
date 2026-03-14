@@ -26,9 +26,12 @@ func main() {
 	greeter := &GreetServer{}
 	mux := http.NewServeMux()
 
-	path, handler := pbconnect.NewGreetServiceHandler(greeter, connect.WithInterceptors(validate.NewInterceptor()))
+	path, handler := pbconnect.NewGreetServiceHandler(
+		greeter,
+		connect.WithInterceptors(validate.NewInterceptor()),
+	)
 
-	mux.Handle(path, handler)
+	mux.Handle(path, withCORS(handler))
 
 	p := new(http.Protocols)
 	p.SetHTTP1(true)
