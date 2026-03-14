@@ -1,45 +1,49 @@
 package main
 
 import (
+	"context"
+	"fmt"
 	"log"
-	"time"
+	"net/http"
 
+	"connectrpc.com/connect"
+	"connectrpc.com/validate"
 	pb "github.com/aecsar/go-proto/gen/pb/aecsar/go_proto/v1"
-	"google.golang.org/protobuf/proto"
-	"google.golang.org/protobuf/types/known/timestamppb"
+	pbconnect "github.com/aecsar/go-proto/gen/pb/aecsar/go_proto/v1/go_protov1connect"
 )
 
+type GreetServer struct{}
+
+func (s *GreetServer) Greet(_ context.Context, req *pb.GreetRequest) (*pb.GreetResponse, error) {
+	res := &pb.GreetResponse{
+		Greeting: fmt.Sprintf("Hello, %s!", req.Name),
+	}
+
+	return res, nil
+}
+
 func main() {
-	book := &pb.AddressBook{
-		People: []*pb.Person{
-			{
-				Id:    1,
-				Name:  "Alice",
-				Email: "alice@example.com",
-				LastUpdated: &timestamppb.Timestamp{
-					Seconds: time.Now().Unix(),
-				},
-				Phones: []*pb.Person_PhoneNumber{
-					{
-						Number: "555-1212", Type: pb.PhoneType_PHONE_TYPE_MOBILE,
-					},
-				},
-			},
-		},
+	greeter := &GreetServer{}
+	mux := http.NewServeMux()
+
+	path, handler := pbconnect.NewGreetServiceHandler(greeter, connect.WithInterceptors(validate.NewInterceptor()))
+
+	mux.Handle(path, handler)
+
+	p := new(http.Protocols)
+	p.SetHTTP1(true)
+	p.SetUnencryptedHTTP2(true) // Use h2c so we can serve HTTP/2 without TLS.
+
+	srv := http.Server{
+		Addr:      ":3000",
+		Handler:   mux,
+		Protocols: p,
 	}
 
-	marshalled, err := proto.Marshal(book)
+	fmt.Println("server listening on port 3000")
+
+	err := srv.ListenAndServe()
 	if err != nil {
-		log.Fatalf("error marshaling message: %v", err)
+		log.Fatalf("error starting server : %v", err)
 	}
-
-	log.Printf("marshalled: %v", marshalled)
-
-	unmarshalled := &pb.AddressBook{}
-
-	if err = proto.Unmarshal(marshalled, unmarshalled); err != nil {
-		log.Fatalf("error unmarshaling message: %v", err)
-	}
-
-	log.Printf("unmarshalled: %v", unmarshalled)
 }

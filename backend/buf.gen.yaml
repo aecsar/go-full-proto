@@ -9,6 +9,7 @@ plugins:
     out: ./gen/pb/
     opt:
       - paths=source_relative
+      - simple
 inputs:
   - directory: ./proto/
 managed:
