@@ -4,8 +4,6 @@ package aecsar.go_proto.v1;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/aecsar/go-proto/pb";
-
 message Person {
   string name = 1;
   int32 id = 2; // Unique ID number for this person.
