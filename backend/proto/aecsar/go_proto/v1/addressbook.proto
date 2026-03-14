@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package go_proto.v1;
+package aecsar.go_proto.v1;
 
 import "google/protobuf/timestamp.proto";
 

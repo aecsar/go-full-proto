@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/aecsar/go-proto/pb"
+	"github.com/aecsar/go-proto/gen/pb"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
