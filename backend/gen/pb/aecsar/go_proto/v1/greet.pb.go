@@ -66,6 +66,7 @@ func (x *GreetRequest) GetName() string {
 	return ""
 }
 
+// GreetResponse is the response message for the Greet RPC.
 type GreetResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Greeting      string                 `protobuf:"bytes,1,opt,name=greeting,proto3" json:"greeting,omitempty"`

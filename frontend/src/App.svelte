@@ -24,7 +24,9 @@
 
 <section id="center">
   <div>
-    <h1>Protobuf, ConnectRPC, Go, Svelte</h1>
+    <h1>
+      Protobuf &nbsp;&nbsp; ConnectRPC &nbsp;&nbsp; Go &nbsp;&nbsp; Svelte
+    </h1>
   </div>
 
   <div class="form">

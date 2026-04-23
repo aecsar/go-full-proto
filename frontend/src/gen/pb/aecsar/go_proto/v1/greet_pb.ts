@@ -31,6 +31,8 @@ export const GreetRequestSchema: GenMessage<GreetRequest> = /*@__PURE__*/
   messageDesc(file_aecsar_go_proto_v1_greet, 0);
 
 /**
+ * GreetResponse is the response message for the Greet RPC.
+ *
  * @generated from message aecsar.go_proto.v1.GreetResponse
  */
 export type GreetResponse = Message<"aecsar.go_proto.v1.GreetResponse"> & {
